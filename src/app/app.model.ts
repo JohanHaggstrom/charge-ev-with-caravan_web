@@ -1,5 +1,4 @@
 export interface CaravanChargePoint {
-    id: number;
     title: string;
     address1: string;
     address2?: string;
@@ -10,4 +9,8 @@ export interface CaravanChargePoint {
     mapCoordinates: string;
     numberOfChargePoints: number;
     capacity: string;
+}
+
+export interface IdentifiedCaravanChargePoint extends CaravanChargePoint {
+    id: number;
 }

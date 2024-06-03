@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CaravanChargePoint } from './app.model';
+import { CaravanChargePoint, IdentifiedCaravanChargePoint } from './app.model';
 
 @Component({
     selector: 'app-root',
@@ -13,9 +13,8 @@ export class AppComponent {
     protected title =
         'Charge points suitable for electric vehicles towing a caravan';
 
-    protected chargePoints: CaravanChargePoint[] = [
+    private chargePoints: CaravanChargePoint[] = [
         {
-            id: 0,
             title: 'Vattenfall InCharge, M2 Center',
             address1: 'Vattenfall - M2 Center',
             address2: '',
@@ -28,7 +27,6 @@ export class AppComponent {
             capacity: '150',
         },
         {
-            id: 2,
             title: 'IONITY, Mellerud',
             address1: 'Snickargatan',
             address2: '',
@@ -41,7 +39,6 @@ export class AppComponent {
             capacity: '350',
         },
         {
-            id: 3,
             title: 'Circle K Truck',
             address1: 'Nyponvägen 3',
             address2: '',
@@ -54,7 +51,6 @@ export class AppComponent {
             capacity: '300',
         },
         {
-            id: 4,
             title: 'OKQ8',
             address1: 'Norra vägen 1',
             address2: '',
@@ -67,4 +63,7 @@ export class AppComponent {
             capacity: '150',
         },
     ];
+
+    protected identifiedChargePoints: IdentifiedCaravanChargePoint[] =
+        this.chargePoints.map((item, index) => ({ ...item, id: index }));
 }
