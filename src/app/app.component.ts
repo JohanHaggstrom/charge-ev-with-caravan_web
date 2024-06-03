@@ -9,5 +9,5 @@ import { RouterOutlet } from '@angular/router';
     styleUrl: './app.component.scss',
 })
 export class AppComponent {
-    title = 'charge-ev-with-caravan';
+    title = 'Charge electric vehicle towing caravans!';
 }
