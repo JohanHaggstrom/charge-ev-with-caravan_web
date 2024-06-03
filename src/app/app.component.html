@@ -7,6 +7,25 @@
             <div>
                 <span>{{ item.title }}</span>
                 <span>{{ item.city }}</span>
+
+                <button
+                    class="link-button"
+                    mat-mini-fab
+                    matTooltip="Open the place in Google maps"
+                    color="primare"
+                >
+                    <a
+                        class="pill"
+                        [href]="
+                            'https://www.google.com/maps/place/' +
+                            item.mapCoordinates
+                        "
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <mat-icon>map</mat-icon>
+                    </a>
+                </button>
             </div>
             } @empty {
             <p>Oh, snap! There are no charge points for the selected region!</p>
