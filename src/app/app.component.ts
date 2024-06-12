@@ -65,6 +65,18 @@ export class AppComponent {
             numberOfChargePoints: NaN,
             capacity: '150',
         },
+        {
+            title: 'Allego charging station',
+            address1: 'Ulvarydsvägen 2',
+            address2: '',
+            postalCode: '285 35',
+            city: 'Markaryd',
+            country: 'Sweden',
+            comments: '',
+            mapCoordinates: '56.44481279040068, 13.60326467913148',
+            numberOfChargePoints: 8,
+            capacity: '300',
+        },
     ];
 
     protected identifiedChargePoints: IdentifiedCaravanChargePoint[] =
