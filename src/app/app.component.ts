@@ -77,6 +77,30 @@ export class AppComponent {
             numberOfChargePoints: 8,
             capacity: '300',
         },
+        {
+            title: 'Rifil E.ON',
+            address1: 'Verkstadsgatan 3B',
+            address2: '',
+            postalCode: '284 34',
+            city: 'Perstorp',
+            country: 'Sweden',
+            comments: 'Toilett and coffe machine.',
+            mapCoordinates: '56.13384948475831, 13.388062564117424',
+            numberOfChargePoints: 8,
+            capacity: '240',
+        },
+        {
+            title: 'Quickcharge',
+            address1: 'Stridslyckegatan 4',
+            address2: '',
+            postalCode: '595 35',
+            city: 'Mjölby',
+            country: 'Sweden',
+            comments: '',
+            mapCoordinates: '58.322298745345044, 15.092630394912435',
+            numberOfChargePoints: 6,
+            capacity: '300',
+        },
     ];
 
     protected identifiedChargePoints: IdentifiedCaravanChargePoint[] =
