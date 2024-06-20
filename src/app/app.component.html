@@ -5,10 +5,11 @@
             <h5>Anpassade, eller lämpliga, när man har husvagn</h5>
 
             @for (item of identifiedChargePoints; track item.id) {
-            <div>
-                <span>{{ item.title }}</span>
-                <span>, </span>
-                <span>{{ item.city }}</span>
+            <div class="one-row-container">
+                <div class="text-content-container">
+                    <span class="left-side-content">{{ item.title }}</span>
+                    <span class="right-side-content">{{ item.city }}</span>
+                </div>
 
                 <button
                     class="link-button"

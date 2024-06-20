@@ -69,3 +69,35 @@ main {
 .content p {
     margin-top: 1.5rem;
 }
+
+// Container for one row in the table
+.one-row-container {
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    .text-content-container {
+        border: 2px solid lightgrey;
+        border-radius: 12px;
+        min-width: 500px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 48px;
+
+        .left-side-content {
+            margin-left: 8px;
+            display: inline-block;
+            min-width: 250px;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .right-side-content {
+            margin-right: 8px;
+        }
+    }
+}
