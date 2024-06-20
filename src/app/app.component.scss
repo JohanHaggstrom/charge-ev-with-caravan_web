@@ -1,3 +1,17 @@
+@media screen and (max-width: 650px) {
+    .content {
+        flex-direction: column;
+        width: max-content;
+    }
+
+    .divider {
+        height: 1px;
+        width: 100%;
+        background: var(--red-to-pink-to-purple-horizontal-gradient);
+        margin-block: 1.5rem;
+    }
+}
+
 :host {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -54,18 +68,4 @@ main {
 
 .content p {
     margin-top: 1.5rem;
-}
-
-@media screen and (max-width: 650px) {
-    .content {
-        flex-direction: column;
-        width: max-content;
-    }
-
-    .divider {
-        height: 1px;
-        width: 100%;
-        background: var(--red-to-pink-to-purple-horizontal-gradient);
-        margin-block: 1.5rem;
-    }
 }
