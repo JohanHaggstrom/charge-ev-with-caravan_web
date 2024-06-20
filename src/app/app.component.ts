@@ -14,8 +14,7 @@ import { CaravanChargePoint, IdentifiedCaravanChargePoint } from './app.model';
     styleUrl: './app.component.scss',
 })
 export class AppComponent {
-    protected title =
-        'Charge points suitable for electric vehicles towing a caravan';
+    protected title = 'Laddstationer';
 
     private chargePoints: CaravanChargePoint[] = databaseItems;
 
