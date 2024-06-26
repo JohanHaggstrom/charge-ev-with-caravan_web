@@ -68,7 +68,7 @@ export const databaseItems: CaravanChargePoint[] = [
         postalCode: '284 34',
         city: 'Perstorp',
         country: 'Sweden',
-        comments: 'Toilett and coffe machine.',
+        comments: 'Toilett and coffe machine(s).',
         mapCoordinates: '56.13384948475831, 13.388062564117424',
         numberOfChargePoints: 8,
         capacity: '240',
