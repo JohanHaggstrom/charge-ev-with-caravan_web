@@ -33,7 +33,12 @@
             <p>Oh, snap! There are no charge points for the selected region!</p>
             }
         </div>
+
+        <div class="right-side">
+            <app-map [chargePoints]="identifiedChargePoints"></app-map>
+        </div>
     </div>
 </main>
 
 <router-outlet />
+

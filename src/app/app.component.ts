@@ -5,10 +5,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterOutlet } from '@angular/router';
 import { databaseItems } from '../db/app.db';
 import { CaravanChargePoint, IdentifiedCaravanChargePoint } from './app.model';
+import { MapComponent } from './map/map.component';
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, MatIconModule, MatButtonModule, MatTooltipModule],
+    imports: [RouterOutlet, MatIconModule, MatButtonModule, MatTooltipModule, MapComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })

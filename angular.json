@@ -27,10 +27,18 @@
                             {
                                 "glob": "**/*",
                                 "input": "public"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets",
+                                "output": "/assets/"
                             }
                         ],
                         "styles": [
                           "@angular/material/prebuilt-themes/azure-blue.css",
+                          "node_modules/leaflet/dist/leaflet.css",
+                          "node_modules/leaflet.markercluster/dist/MarkerCluster.css",
+                          "node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css",
                           "src/styles.scss"
                         ],
                         "scripts": []
@@ -84,10 +92,18 @@
                             {
                                 "glob": "**/*",
                                 "input": "public"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets",
+                                "output": "/assets/"
                             }
                         ],
                         "styles": [
                           "@angular/material/prebuilt-themes/azure-blue.css",
+                          "node_modules/leaflet/dist/leaflet.css",
+                          "node_modules/leaflet.markercluster/dist/MarkerCluster.css",
+                          "node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css",
                           "src/styles.scss"
                         ],
                         "scripts": []
