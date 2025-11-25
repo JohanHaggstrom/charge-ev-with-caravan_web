@@ -8,10 +8,9 @@ import { CaravanChargePoint, IdentifiedCaravanChargePoint } from './app.model';
 
 @Component({
     selector: 'app-root',
-    standalone: true,
     imports: [RouterOutlet, MatIconModule, MatButtonModule, MatTooltipModule],
     templateUrl: './app.component.html',
-    styleUrl: './app.component.scss',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
     protected title = 'Laddstationer';
