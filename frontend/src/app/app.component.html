@@ -1,0 +1,44 @@
+<main class="main">
+    <div class="content">
+        <div class="left-side">
+            <h1>{{ title }}</h1>
+            <h5>Anpassade, eller lämpliga, när man har husvagn</h5>
+
+            @for (item of identifiedChargePoints; track item.id) {
+            <div class="one-row-container">
+                <div class="text-content-container">
+                    <span class="left-side-content">{{ item.title }}</span>
+                    <span class="right-side-content">{{ item.city }}</span>
+                </div>
+
+                <button
+                    class="link-button"
+                    mat-mini-fab
+                    matTooltip="Open the place in Google maps"
+                    color="primare"
+                >
+                    <a
+                        [href]="
+                            'https://www.google.com/maps/place/' +
+                            item.mapCoordinates
+                        "
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <mat-icon>map</mat-icon>
+                    </a>
+                </button>
+            </div>
+            } @empty {
+            <p>Oh, snap! There are no charge points for the selected region!</p>
+            }
+        </div>
+
+        <div class="right-side">
+            <app-map [chargePoints]="identifiedChargePoints"></app-map>
+        </div>
+    </div>
+</main>
+
+<router-outlet />
+
