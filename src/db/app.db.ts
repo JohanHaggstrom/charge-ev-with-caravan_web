@@ -11,7 +11,7 @@ export const databaseItems: CaravanChargePoint[] = [
         comments: 'An unknown places are dedicated for large vehicles',
         mapCoordinates: '57.7617016947237, 14.19194294601759',
         numberOfChargePoints: 12,
-        capacity: '150',
+        capacity: 150,
     },
     {
         title: 'IONITY, Mellerud',
@@ -23,7 +23,7 @@ export const databaseItems: CaravanChargePoint[] = [
         comments: 'No dedicated spots, but works in many cases.',
         mapCoordinates: '58.7058060636534, 12.454113738931984',
         numberOfChargePoints: 6,
-        capacity: '350',
+        capacity: 350,
     },
     {
         title: 'Circle K Truck',
@@ -35,7 +35,7 @@ export const databaseItems: CaravanChargePoint[] = [
         comments: 'Seem to be large charge points, but not confirmed.',
         mapCoordinates: '56.81218919027184, 13.909877973820073',
         numberOfChargePoints: NaN,
-        capacity: '300',
+        capacity: 300,
     },
     {
         title: 'OKQ8',
@@ -47,7 +47,7 @@ export const databaseItems: CaravanChargePoint[] = [
         comments: 'Unknown number of charging points and placement.',
         mapCoordinates: '58.544494784622344, 14.502399970551915',
         numberOfChargePoints: NaN,
-        capacity: '150',
+        capacity: 150,
     },
     {
         title: 'Allego charging station',
@@ -59,7 +59,7 @@ export const databaseItems: CaravanChargePoint[] = [
         comments: '',
         mapCoordinates: '56.44481279040068, 13.60326467913148',
         numberOfChargePoints: 8,
-        capacity: '300',
+        capacity: 300,
     },
     {
         title: 'Rifil E.ON',
@@ -71,7 +71,7 @@ export const databaseItems: CaravanChargePoint[] = [
         comments: 'Toilett and coffe machine(s).',
         mapCoordinates: '56.13384948475831, 13.388062564117424',
         numberOfChargePoints: 8,
-        capacity: '240',
+        capacity: 240,
     },
     {
         title: 'Quickcharge',
@@ -83,7 +83,7 @@ export const databaseItems: CaravanChargePoint[] = [
         comments: '',
         mapCoordinates: '58.322298745345044, 15.092630394912435',
         numberOfChargePoints: 6,
-        capacity: '300',
+        capacity: 300,
     },
     {
         title: 'Circle K/Ingo',
@@ -95,7 +95,7 @@ export const databaseItems: CaravanChargePoint[] = [
         comments: '',
         mapCoordinates: '65.58818018806531, 19.19007382489225',
         numberOfChargePoints: 2,
-        capacity: '360',
+        capacity: 360,
     },
     {
         title: 'Circle K',
@@ -107,6 +107,6 @@ export const databaseItems: CaravanChargePoint[] = [
         comments: '',
         mapCoordinates: '67.13804586955752, 20.65923215302954',
         numberOfChargePoints: 4,
-        capacity: '360',
+        capacity: 360,
     },
 ];

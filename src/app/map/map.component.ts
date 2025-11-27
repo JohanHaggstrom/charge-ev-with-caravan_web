@@ -96,7 +96,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
         this.chargePoints.forEach((point) => {
             const coords = this.parseCoordinates(point.mapCoordinates);
             if (coords && this.markerClusterGroup) {
-                const icon = this.getMarkerIcon(parseFloat(point.capacity));
+                const icon = this.getMarkerIcon(point.capacity);
                 const marker = L.marker(coords, { icon })
                     .bindPopup(this.createPopupContent(point));
 
@@ -149,7 +149,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
     }
 
     private createPopupContent(point: IdentifiedCaravanChargePoint): string {
-        const capacityColor = parseFloat(point.capacity) > 50 ? '#10b981' : parseFloat(point.capacity) >= 22 ? '#f59e0b' : '#ef4444';
+        const capacityColor = point.capacity > 50 ? '#10b981' : point.capacity >= 22 ? '#f59e0b' : '#ef4444';
 
         return `
             <div class="popup-content">
