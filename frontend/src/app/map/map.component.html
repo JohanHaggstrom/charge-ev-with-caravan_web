@@ -1,4 +1,17 @@
 <div class="map-container">
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text"
+                   [(ngModel)]="searchQuery"
+                   (keyup.enter)="searchLocation()"
+                   placeholder="Sök ort..."
+                   class="search-input">
+            <button (click)="searchLocation()" class="search-btn" [disabled]="isSearching" title="Sök">
+                <span *ngIf="!isSearching">🔍</span>
+                <span *ngIf="isSearching" class="spinner">↻</span>
+            </button>
+        </div>
+    </div>
     <div class="map-controls">
         <button class="location-btn" (click)="showUserLocation()" title="Visa min position">
             📍 Min position

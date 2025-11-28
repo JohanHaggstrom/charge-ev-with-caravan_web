@@ -1,3 +1,5 @@
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import {
     AfterViewInit,
     Component,
@@ -8,14 +10,16 @@ import {
     OnInit,
     Output,
     SimpleChanges,
+    inject,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import { IdentifiedCaravanChargePoint } from '../app.model';
 
 @Component({
     selector: 'app-map',
-    imports: [],
+    imports: [CommonModule, FormsModule],
     templateUrl: './map.component.html',
     styleUrl: './map.component.scss',
 })
@@ -26,6 +30,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
     private map: L.Map | null = null;
     private markerClusterGroup: L.MarkerClusterGroup | null = null;
     private userLocationMarker: L.Marker | null = null;
+    private http = inject(HttpClient);
+
+    public searchQuery: string = '';
+    public searchResults: any[] = [];
+    public isSearching: boolean = false;
 
     ngOnInit(): void {
         // Fix for default marker icons in Leaflet with webpack
@@ -212,5 +221,34 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
         } else {
             alert('Geolocation stöds inte av din webbläsare.');
         }
+    }
+    public searchLocation(): void {
+        if (!this.searchQuery || this.searchQuery.length < 3) return;
+
+        this.isSearching = true;
+        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(this.searchQuery)}`;
+
+        this.http.get<any[]>(url).subscribe({
+            next: (results) => {
+                this.isSearching = false;
+                if (results && results.length > 0) {
+                    const firstResult = results[0];
+                    const lat = parseFloat(firstResult.lat);
+                    const lon = parseFloat(firstResult.lon);
+
+                    if (this.map) {
+                        this.map.setView([lat, lon], 12);
+                    }
+                    this.searchResults = []; // Clear results after selection (or handle list if we want to show multiple)
+                } else {
+                    alert('Inga platser hittades.');
+                }
+            },
+            error: (err) => {
+                this.isSearching = false;
+                console.error('Search error:', err);
+                alert('Ett fel uppstod vid sökning.');
+            }
+        });
     }
 }
