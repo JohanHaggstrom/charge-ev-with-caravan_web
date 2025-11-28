@@ -1,4 +1,10 @@
 import {
+  CdkScrollableModule,
+  ScrollDispatcher,
+  ScrollingModule,
+  ViewportRuler
+} from "./chunk-X2PNFEQ4.js";
+import {
   A11yModule,
   AriaDescriber,
   ESCAPE,
@@ -13,18 +19,12 @@ import {
   coerceCssPixelValue,
   hasModifierKey,
   normalizePassiveListenerOptions
-} from "./chunk-XHDONZZU.js";
-import {
-  CdkScrollableModule,
-  ScrollDispatcher,
-  ScrollingModule,
-  ViewportRuler
-} from "./chunk-YZK5AFZD.js";
+} from "./chunk-4B4XL3YA.js";
 import {
   Platform,
   coerceNumberProperty,
   supportsScrollBehavior
-} from "./chunk-MDYTPABH.js";
+} from "./chunk-2WBZOGGB.js";
 import {
   BidiModule,
   Directionality
@@ -32,7 +32,8 @@ import {
 import {
   Location,
   NgClass
-} from "./chunk-RALZBBG4.js";
+} from "./chunk-JQMAYNG5.js";
+import "./chunk-WOQ47UI3.js";
 import {
   ANIMATION_MODULE_TYPE,
   ApplicationRef,
