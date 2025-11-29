@@ -16,7 +16,7 @@
 ## Backend (.NET)
 - [ ] **Databas**: Byta ut InMemory-databasen mot en riktig databas (t.ex. PostgreSQL eller SQL Server).
 - [ ] **Data-modell**: Utöka modellen för laddstationer (fler fält, riktiga koordinater).
-- [ ] **API-säkerhet (Läs)**: Implementera API-nyckel för att läsa laddstationer (konfigureras via miljövariabler).
+- [x] **API-säkerhet (Läs)**: Implementera API-nyckel för att läsa laddstationer (konfigureras via miljövariabler).
 - [ ] **Autentisering (Skriv)**: Implementera Login-funktionalitet för administrativa åtgärder.
 - [ ] **CRUD-operationer**:
     - [ ] Möjlighet att lägga till en punkt.
@@ -27,14 +27,20 @@
     - [ ] Möjlighet att ge tumme upp/ner på en punkt.
 
 ## Frontend (Angular)
-- [ ] **Karta - Sök**: Implementera sökfält för att hitta platser på kartan.
+- [x] **Karta - Sök**: Implementera sökfält för att hitta platser på kartan.
 - [ ] **Karta - Styling**: Göra pins transparenta/snyggare.
-- [ ] **API-koppling**: Koppla ihop frontend med backend på riktigt (ersätta hårdkodad data).
-- [ ] **Säkerhet**: Hantera API-nyckel i anrop och Login-flöde i UI.
+- [x] **API-koppling**: Koppla ihop frontend med backend på riktigt (ersätta hårdkodad data).
+- [x] **Säkerhet**: Hantera API-nyckel i anrop och Login-flöde i UI.
 - [ ] **Admin UI**: Gränssnitt för att lägga till, redigera och ta bort punkter.
 - [ ] **Social UI**: Gränssnitt för kommentarer och betyg.
 - [ ] **Felhantering**: Hantera om backend är nere eller API-anrop misslyckas.
-- [ ] **Lista/karta**: Lägg till möjlighet att visa en lista eller en karta.
+- [x] **Lista/karta**: Lägg till möjlighet att visa en lista eller en karta.
+- [ ] **Runtime Config för Docker**: Implementera runtime configuration för API-nyckel i Docker
+    - Skapa `app.initializer.ts` som läser `/assets/config.json` vid app-start
+    - Skapa `docker-entrypoint.sh` som genererar `config.json` från miljövariabler
+    - Uppdatera Dockerfile att använda entrypoint-scriptet
+    - Flytta `apiKey` och `apiUrl` från `environment.ts` till runtime config
+    - Detta gör att samma Docker-image kan användas i olika miljöer
 
 ## Dokumentation
 - [ ] **Uppdatera README**: Dokumentera nya funktioner och Docker-setup.

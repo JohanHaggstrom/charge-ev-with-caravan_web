@@ -1,4 +1,5 @@
 using ElbilHusvagnLadda.WebApi.Data;
+using ElbilHusvagnLadda.WebApi.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +46,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAngularApp");
+
+// API Key validation
+app.UseMiddleware<ApiKeyMiddleware>();
 
 app.UseAuthorization();
 

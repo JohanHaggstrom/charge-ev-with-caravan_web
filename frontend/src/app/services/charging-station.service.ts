@@ -24,11 +24,19 @@ export class ChargingStationService {
     private http = inject(HttpClient);
     private apiUrl = `${environment.apiUrl}/api/chargingpoints`;
 
+    private getHeaders() {
+        return {
+            headers: {
+                'X-API-Key': environment.apiKey
+            }
+        };
+    }
+
     getChargingPoints(): Observable<ChargingPoint[]> {
-        return this.http.get<ChargingPoint[]>(this.apiUrl);
+        return this.http.get<ChargingPoint[]>(this.apiUrl, this.getHeaders());
     }
 
     getChargingPoint(id: number): Observable<ChargingPoint> {
-        return this.http.get<ChargingPoint>(`${this.apiUrl}/${id}`);
+        return this.http.get<ChargingPoint>(`${this.apiUrl}/${id}`, this.getHeaders());
     }
 }
