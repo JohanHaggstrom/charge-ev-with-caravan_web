@@ -7,7 +7,7 @@
 
 
 ## Infrastruktur & DevOps
-- [ ] **Taskar**: Skapa task(ar) för att förenkla utvecklingen.
+- [x] **Taskar**: Skapa task(ar) för att förenkla utvecklingen.
 - [ ] **Hosting**: Utreda hur applikationen ska hostas.
 - [ ] **HTTPS Strategi**: Planera för reverse proxy (t.ex. Nginx/Traefik) för SSL-terminering i produktion.
 - [ ] **Docker**: Skapa Dockerfiles för frontend och backend, samt en docker-compose för att köra allt lokalt.

@@ -3,6 +3,7 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "frontend: start",
             "type": "npm",
             "script": "start",
             "isBackground": true,
@@ -22,6 +23,26 @@
                     }
                 }
             }
+        },
+        {
+            "label": "backend: run",
+            "type": "process",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "${workspaceFolder}/backend/ElbilHusvagnLadda.WebApi/ElbilHusvagnLadda.WebApi.csproj"
+            ],
+            "isBackground": true,
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Run All",
+            "dependsOn": ["frontend: start", "backend: run"],
+            "problemMatcher": []
         },
         {
             "type": "npm",
