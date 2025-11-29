@@ -40,3 +40,9 @@ typings
 # System files
 .DS_Store
 Thumbs.db
+
+# .NET
+backend/**/bin/
+backend/**/obj/
+backend/**/*.user
+backend/**/*.suo

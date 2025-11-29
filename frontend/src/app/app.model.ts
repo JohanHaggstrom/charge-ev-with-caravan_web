@@ -7,7 +7,7 @@ export interface CaravanChargePoint {
     country: string;
     comments?: string;
     mapCoordinates: string;
-    numberOfChargePoints: number;
+    numberOfChargePoints?: number;
     capacity: number;
 }
 

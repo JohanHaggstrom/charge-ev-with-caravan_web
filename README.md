@@ -1,27 +1,87 @@
-# ChargeEvWithCaravan
+# Elbil med Husvagn
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2.
+En webbapplikation för att hitta laddstationer som är lämpliga för elbilar med husvagn.
 
-## Development server
+## Projektstruktur
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Projektet består av två delar:
 
-## Code scaffolding
+- **frontend/** - Angular 21 webbapplikation
+- **backend/** - .NET 8 REST API
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Kom igång
 
-## Build
+### Förutsättningar
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Node.js (för frontend)
+- .NET 8 SDK (för backend)
 
-## Running unit tests
+### Starta Backend
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+cd backend/ChargeEvWithCaravan.WebApi
+dotnet run
+```
 
-## Running end-to-end tests
+Backend körs på `http://localhost:5171`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Starta Frontend
 
-## Further help
+```bash
+cd frontend
+npm install  # Första gången
+npm start
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Frontend körs på `http://localhost:4200`
+
+## Teknologier
+
+### Frontend
+- Angular 21
+- Angular Material
+- Leaflet (kartor)
+- TypeScript
+
+### Backend
+- .NET 8
+- ASP.NET Core Web API
+- Entity Framework Core
+- InMemory Database (för utveckling)
+
+## API Endpoints
+
+- `GET /api/chargingpoints` - Hämta alla laddstationer
+- `GET /api/chargingpoints/{id}` - Hämta en specifik laddstation
+
+## Utveckling
+
+### Frontend
+
+Kör `ng serve` för en dev-server. Navigera till `http://localhost:4200/`. Applikationen laddas om automatiskt om du ändrar källfilerna.
+
+### Backend
+
+Kör `dotnet run` i backend-mappen. API:et startar på `http://localhost:5171`.
+Swagger UI finns tillgänglig på `http://localhost:5171/swagger` i development-läge.
+
+## Bygga för produktion
+
+### Frontend
+```bash
+cd frontend
+npm run build
+```
+
+Build-artefakter lagras i `frontend/dist/` katalogen.
+
+### Backend
+```bash
+cd backend/ChargeEvWithCaravan.WebApi
+dotnet publish -c Release
+```
+
+## Mer information
+
+Se respektive README i `frontend/` och `backend/` mapparna för mer detaljerad information.
+

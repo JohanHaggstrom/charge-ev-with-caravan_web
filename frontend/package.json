@@ -7,7 +7,8 @@
     "dev": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "clean-start": "rm -rf .angular && ng serve"
   },
   "private": true,
   "dependencies": {
