@@ -1,4 +1,4 @@
-# Elbil med Husvagn
+# Elbil. Husvagn. Ladda.
 
 En webbapplikation för att hitta laddstationer som är lämpliga för elbilar med husvagn.
 
@@ -19,7 +19,7 @@ Projektet består av två delar:
 ### Starta Backend
 
 ```bash
-cd backend/ChargeEvWithCaravan.WebApi
+cd backend/ElbilHusvagnLadda.WebApi
 dotnet run
 ```
 
@@ -77,7 +77,7 @@ Build-artefakter lagras i `frontend/dist/` katalogen.
 
 ### Backend
 ```bash
-cd backend/ChargeEvWithCaravan.WebApi
+cd backend/ElbilHusvagnLadda.WebApi
 dotnet publish -c Release
 ```
 

@@ -1,9 +1,9 @@
-using ChargeEvWithCaravan.WebApi.Data;
-using ChargeEvWithCaravan.WebApi.Models;
+using ElbilHusvagnLadda.WebApi.Data;
+using ElbilHusvagnLadda.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace ChargeEvWithCaravan.WebApi.Controllers;
+namespace ElbilHusvagnLadda.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

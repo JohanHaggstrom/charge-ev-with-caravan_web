@@ -1,4 +1,4 @@
-# ChargeEvWithCaravan Backend
+# ElbilHusvagnLadda Backend
 
 .NET 8 REST API för laddstationer för elbilar med husvagn.
 
@@ -17,7 +17,7 @@
 ### Köra backend
 
 ```bash
-cd backend/ChargeEvWithCaravan.WebApi
+cd backend/ElbilHusvagnLadda.WebApi
 dotnet run
 ```
 

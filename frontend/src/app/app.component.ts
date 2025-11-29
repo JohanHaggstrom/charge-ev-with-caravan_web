@@ -14,7 +14,7 @@ import { ChargingStationService } from './services/charging-station.service';
     styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-    protected title = 'Laddstationer';
+    protected title = 'Elbil. Husvagn. Ladda.';
     protected identifiedChargePoints: IdentifiedCaravanChargePoint[] = [];
 
     private chargingStationService = inject(ChargingStationService);

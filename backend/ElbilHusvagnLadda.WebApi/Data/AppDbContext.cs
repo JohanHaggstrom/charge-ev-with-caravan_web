@@ -1,7 +1,7 @@
-using ChargeEvWithCaravan.WebApi.Models;
+using ElbilHusvagnLadda.WebApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ChargeEvWithCaravan.WebApi.Data;
+namespace ElbilHusvagnLadda.WebApi.Data;
 
 public class AppDbContext : DbContext
 {

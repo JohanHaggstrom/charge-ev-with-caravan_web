@@ -1,4 +1,4 @@
-namespace ChargeEvWithCaravan.WebApi.Models;
+namespace ElbilHusvagnLadda.WebApi.Models;
 
 public class ChargingPoint
 {

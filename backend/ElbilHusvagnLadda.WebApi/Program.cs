@@ -1,4 +1,4 @@
-using ChargeEvWithCaravan.WebApi.Data;
+using ElbilHusvagnLadda.WebApi.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +8,7 @@ builder.Services.AddControllers();
 
 // Configure DbContext with InMemory database
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseInMemoryDatabase("ChargeEvWithCaravanDb"));
+    options.UseInMemoryDatabase("ElbilHusvagnLaddaDb"));
 
 // Configure CORS to allow Angular frontend
 builder.Services.AddCors(options =>
