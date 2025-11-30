@@ -17,7 +17,7 @@
 - [ ] **Databas**: Byta ut InMemory-databasen mot en riktig databas (t.ex. PostgreSQL eller SQL Server).
 - [ ] **Data-modell**: Utöka modellen för laddstationer (fler fält, riktiga koordinater).
 - [x] **API-säkerhet (Läs)**: Implementera API-nyckel för att läsa laddstationer (konfigureras via miljövariabler).
-- [ ] **Autentisering (Skriv)**: Implementera Login-funktionalitet för administrativa åtgärder.
+- [x] **Autentisering (Skriv)**: Implementera Login-funktionalitet för administrativa åtgärder.
 - [ ] **CRUD-operationer**:
     - [ ] Möjlighet att lägga till en punkt.
     - [ ] Möjlighet att editera en punkt.
