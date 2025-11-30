@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { IdentifiedCaravanChargePoint } from '../app.model';
 import { AuthService } from '../auth/auth.service';
+import { EditChargingPointDialogComponent } from '../dialogs/edit-charging-point-dialog/edit-charging-point-dialog.component';
 import { MapComponent } from '../map/map.component';
 import { ChargingStationService } from '../services/charging-station.service';
 
@@ -52,6 +54,7 @@ export class HomeComponent implements OnInit {
     protected authService = inject(AuthService);
     private router = inject(Router);
     private chargingStationService = inject(ChargingStationService);
+    private dialog = inject(MatDialog);
 
     navigateToLogin(): void {
         this.router.navigate(['/login']);
@@ -63,6 +66,20 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadChargingPoints();
+    }
+
+    openEditDialog(point: IdentifiedCaravanChargePoint): void {
+        const dialogRef = this.dialog.open(EditChargingPointDialogComponent, {
+            data: point,
+            width: '600px',
+            maxWidth: '95vw'
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.loadChargingPoints();
+            }
+        });
     }
 
     private loadChargingPoints(): void {

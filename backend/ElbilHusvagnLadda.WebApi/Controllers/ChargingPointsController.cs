@@ -53,4 +53,39 @@ public class ChargingPointsController : ControllerBase
             return StatusCode(500, "An error occurred while retrieving the charging point");
         }
     }
+
+    [HttpPut("{id}")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
+    public async Task<IActionResult> UpdateChargingPoint(int id, ChargingPoint chargingPoint)
+    {
+        if (id != chargingPoint.Id)
+        {
+            return BadRequest();
+        }
+
+        _context.Entry(chargingPoint).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!ChargingPointExists(id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        return NoContent();
+    }
+
+    private bool ChargingPointExists(int id)
+    {
+        return _context.ChargingPoints.Any(e => e.Id == id);
+    }
 }

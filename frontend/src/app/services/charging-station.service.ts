@@ -39,4 +39,8 @@ export class ChargingStationService {
     getChargingPoint(id: number): Observable<ChargingPoint> {
         return this.http.get<ChargingPoint>(`${this.apiUrl}/${id}`, this.getHeaders());
     }
+
+    updateChargingPoint(id: number, chargingPoint: ChargingPoint): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${id}`, chargingPoint);
+    }
 }

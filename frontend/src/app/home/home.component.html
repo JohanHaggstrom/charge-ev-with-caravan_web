@@ -51,23 +51,36 @@
                     <span class="right-side-content">{{ item.city }}</span>
                 </div>
 
-                <button
-                    class="link-button"
-                    mat-mini-fab
-                    matTooltip="Open the place in Google maps"
-                    color="primare"
-                >
-                    <a
-                        [href]="
-                            'https://www.google.com/maps/place/' +
-                            item.mapCoordinates
-                        "
-                        target="_blank"
-                        rel="noopener"
+                <div class="actions">
+                    @if (authService.isAuthenticated()) {
+                        <button
+                            class="link-button"
+                            mat-mini-fab
+                            matTooltip="Redigera"
+                            color="accent"
+                            (click)="openEditDialog(item)"
+                        >
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    }
+                    <button
+                        class="link-button"
+                        mat-mini-fab
+                        matTooltip="Open the place in Google maps"
+                        color="primary"
                     >
-                        <mat-icon>map</mat-icon>
-                    </a>
-                </button>
+                        <a
+                            [href]="
+                                'https://www.google.com/maps/place/' +
+                                item.mapCoordinates
+                            "
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <mat-icon>map</mat-icon>
+                        </a>
+                    </button>
+                </div>
             </div>
             } @empty {
             <p>Oh, snap! There are no charge points for the selected region!</p>
@@ -77,7 +90,10 @@
 
         @if (viewMode === 'map') {
         <div class="map-view">
-            <app-map [chargePoints]="identifiedChargePoints"></app-map>
+            <app-map
+                [chargePoints]="filteredChargePoints"
+                (editChargePoint)="openEditDialog($event)"
+            ></app-map>
         </div>
         }
     </div>

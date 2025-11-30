@@ -194,4 +194,9 @@ p {
             flex-shrink: 0; // Don't shrink the city name
         }
     }
+
+    .actions {
+        display: flex;
+        align-items: center;
+    }
 }

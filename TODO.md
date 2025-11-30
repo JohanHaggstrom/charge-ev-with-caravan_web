@@ -18,6 +18,8 @@
 - [ ] **Data-modell**: Utöka modellen för laddstationer (fler fält, riktiga koordinater).
 - [x] **API-säkerhet (Läs)**: Implementera API-nyckel för att läsa laddstationer (konfigureras via miljövariabler).
 - [x] **Autentisering (Skriv)**: Implementera Login-funktionalitet för administrativa åtgärder.
+- [x] **Redigering**: Möjlighet att redigera laddstationer (kräver inloggning).
+- [ ] **Skapa**: Möjlighet att lägga till nya laddstationer.
 - [ ] **CRUD-operationer**:
     - [ ] Möjlighet att lägga till en punkt.
     - [ ] Möjlighet att editera en punkt.

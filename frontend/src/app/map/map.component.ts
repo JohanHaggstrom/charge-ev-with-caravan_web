@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import { IdentifiedCaravanChargePoint } from '../app.model';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
     selector: 'app-map',
@@ -26,11 +27,13 @@ import { IdentifiedCaravanChargePoint } from '../app.model';
 export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     @Input() chargePoints: IdentifiedCaravanChargePoint[] = [];
     @Output() chargePointSelected = new EventEmitter<IdentifiedCaravanChargePoint>();
+    @Output() editChargePoint = new EventEmitter<IdentifiedCaravanChargePoint>();
 
     private map: L.Map | null = null;
     private markerClusterGroup: L.MarkerClusterGroup | null = null;
     private userLocationMarker: L.Marker | null = null;
     private http = inject(HttpClient);
+    private authService = inject(AuthService);
 
     public searchQuery: string = '';
     public searchResults: any[] = [];
@@ -93,6 +96,24 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
             zoomToBoundsOnClick: true,
         });
         this.map.addLayer(this.markerClusterGroup);
+
+        // Handle popup open events to attach click listeners
+        this.map.on('popupopen', (e: L.PopupEvent) => {
+            const popupNode = e.popup.getElement();
+            if (popupNode) {
+                const editBtn = popupNode.querySelector('.edit-btn');
+                if (editBtn) {
+                    editBtn.addEventListener('click', () => {
+                        // Find the point associated with this popup
+                        const pointId = editBtn.getAttribute('data-id');
+                        const point = this.chargePoints.find(p => p.id === Number(pointId));
+                        if (point) {
+                            this.editChargePoint.emit(point);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     private addMarkers(): void {
@@ -159,6 +180,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
 
     private createPopupContent(point: IdentifiedCaravanChargePoint): string {
         const capacityColor = point.capacity > 50 ? '#10b981' : point.capacity >= 22 ? '#f59e0b' : '#ef4444';
+        const editButton = this.authService.isAuthenticated()
+            ? `<button class="edit-btn" data-id="${point.id}" style="margin-top: 8px; width: 100%; padding: 6px; background: #e0e7ff; border: none; border-radius: 4px; cursor: pointer; color: #3730a3; font-weight: 500;">✏️ Redigera</button>`
+            : '';
 
         return `
             <div class="popup-content">
@@ -178,6 +202,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
                    class="map-link">
                     📍 Öppna i Google Maps
                 </a>
+                ${editButton}
             </div>
         `;
     }

@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>Redigera laddstation</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="edit-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Titel</mat-label>
+      <input matInput formControlName="title" required>
+    </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Adress 1</mat-label>
+        <input matInput formControlName="address1" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Adress 2</mat-label>
+        <input matInput formControlName="address2">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Postnummer</mat-label>
+        <input matInput formControlName="postalCode" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Stad</mat-label>
+        <input matInput formControlName="city" required>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Land</mat-label>
+      <input matInput formControlName="country" required>
+    </mat-form-field>
+
+    <div class="map-container">
+      <div id="edit-map"></div>
+      <p class="help-text">Klicka på kartan eller dra markören för att ändra position.</p>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Koordinater (lat, lng)</mat-label>
+        <input matInput formControlName="mapCoordinates" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Kapacitet (kW)</mat-label>
+        <input matInput type="number" formControlName="capacity" required>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Antal laddpunkter</mat-label>
+      <input matInput type="number" formControlName="numberOfChargePoints">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Kommentarer</mat-label>
+      <textarea matInput formControlName="comments" rows="3"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Avbryt</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!form.valid">Spara</button>
+</mat-dialog-actions>

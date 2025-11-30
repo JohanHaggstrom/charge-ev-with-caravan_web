@@ -1,0 +1,50 @@
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 400px;
+    padding-top: 1rem;
+
+    .row {
+        display: flex;
+        gap: 1rem;
+
+        mat-form-field {
+            flex: 1;
+        }
+    }
+
+    mat-form-field {
+        width: 100%;
+    }
+
+    .map-container {
+        margin-bottom: 1rem;
+
+        #edit-map {
+            height: 300px;
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .help-text {
+            margin: 0.5rem 0 0 0;
+            font-size: 0.8rem;
+            color: #666;
+            font-style: italic;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .edit-form {
+        min-width: unset;
+        width: 100%;
+
+        .row {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+}
