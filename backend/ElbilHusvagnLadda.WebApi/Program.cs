@@ -7,9 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
-// Configure DbContext with InMemory database
+// Configure DbContext with MariaDB
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseInMemoryDatabase("ElbilHusvagnLaddaDb"));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // Configure CORS to allow Angular frontend
 builder.Services.AddCors(options =>

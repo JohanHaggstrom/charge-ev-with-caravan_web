@@ -40,6 +40,38 @@
             }
         },
         {
+            "label": "database: start",
+            "type": "shell",
+            "command": "docker-compose -f docker-compose.db.yml up -d",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "database: stop",
+            "type": "shell",
+            "command": "docker-compose -f docker-compose.db.yml down",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run All (with DB)",
+            "dependsOn": ["database: start", "frontend: start", "backend: run"],
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        },
+        {
             "label": "Run All",
             "dependsOn": ["frontend: start", "backend: run"],
             "problemMatcher": []

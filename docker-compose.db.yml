@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: elbil-husvagn-ladda-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: dev_password_123
+      MYSQL_DATABASE: ElbilHusvagnLadda
+      MYSQL_USER: elbil_user
+      MYSQL_PASSWORD: elbil_pass_123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+volumes:
+  mariadb_data:

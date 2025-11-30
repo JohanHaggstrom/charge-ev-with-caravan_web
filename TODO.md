@@ -14,7 +14,7 @@
 - [ ] **CI/CD**: Implementera CI/CD-pipeline för automatisk deployment.
 
 ## Backend (.NET)
-- [ ] **Databas**: Byta ut InMemory-databasen mot en riktig databas (t.ex. PostgreSQL eller SQL Server).
+- [x] **Databas**: Byta ut InMemory-databasen mot en riktig databas (t.ex. PostgreSQL eller SQL Server).
 - [ ] **Data-modell**: Utöka modellen för laddstationer (fler fält, riktiga koordinater).
 - [x] **API-säkerhet (Läs)**: Implementera API-nyckel för att läsa laddstationer (konfigureras via miljövariabler).
 - [x] **Autentisering (Skriv)**: Implementera Login-funktionalitet för administrativa åtgärder.
