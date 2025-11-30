@@ -84,6 +84,16 @@ public class ChargingPointsController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost]
+    [Microsoft.AspNetCore.Authorization.Authorize]
+    public async Task<ActionResult<ChargingPoint>> CreateChargingPoint(ChargingPoint chargingPoint)
+    {
+        _context.ChargingPoints.Add(chargingPoint);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction("GetChargingPoint", new { id = chargingPoint.Id }, chargingPoint);
+    }
+
     private bool ChargingPointExists(int id)
     {
         return _context.ChargingPoints.Any(e => e.Id == id);

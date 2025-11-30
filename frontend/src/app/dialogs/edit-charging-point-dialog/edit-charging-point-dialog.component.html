@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Redigera laddstation</h2>
+<h2 mat-dialog-title>{{ data ? 'Redigera' : 'Lägg till' }} laddstation</h2>
 <mat-dialog-content>
   <form [formGroup]="form" class="edit-form">
     <mat-form-field appearance="outline">
@@ -46,12 +46,21 @@
       <mat-form-field appearance="outline">
         <mat-label>Kapacitet (kW)</mat-label>
         <input matInput type="number" formControlName="capacity" required>
+        <mat-error *ngIf="form.get('capacity')?.hasError('notInteger')">
+          Kapacitet måste vara ett heltal
+        </mat-error>
+        <mat-error *ngIf="form.get('capacity')?.hasError('required')">
+          Kapacitet krävs
+        </mat-error>
       </mat-form-field>
     </div>
 
-    <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline">
       <mat-label>Antal laddpunkter</mat-label>
       <input matInput type="number" formControlName="numberOfChargePoints">
+      <mat-error *ngIf="form.get('numberOfChargePoints')?.hasError('notInteger')">
+        Antal laddpunkter måste vara ett heltal
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">

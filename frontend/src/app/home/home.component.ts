@@ -82,6 +82,20 @@ export class HomeComponent implements OnInit {
         });
     }
 
+    openCreateDialog(): void {
+        const dialogRef = this.dialog.open(EditChargingPointDialogComponent, {
+            data: null,
+            width: '600px',
+            maxWidth: '95vw'
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.loadChargingPoints();
+            }
+        });
+    }
+
     private loadChargingPoints(): void {
         this.chargingStationService.getChargingPoints().subscribe({
             next: (points) => {

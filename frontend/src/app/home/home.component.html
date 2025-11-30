@@ -97,4 +97,16 @@
         </div>
         }
     </div>
+
+    @if (authService.isAuthenticated()) {
+        <button
+            mat-fab
+            color="primary"
+            class="add-fab"
+            matTooltip="Lägg till laddstation"
+            (click)="openCreateDialog()"
+        >
+            <mat-icon>add</mat-icon>
+        </button>
+    }
 </main>

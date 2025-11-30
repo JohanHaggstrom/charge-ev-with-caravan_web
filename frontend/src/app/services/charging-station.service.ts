@@ -43,4 +43,8 @@ export class ChargingStationService {
     updateChargingPoint(id: number, chargingPoint: ChargingPoint): Observable<void> {
         return this.http.put<void>(`${this.apiUrl}/${id}`, chargingPoint);
     }
+
+    createChargingPoint(chargingPoint: Omit<ChargingPoint, 'id'>): Observable<ChargingPoint> {
+        return this.http.post<ChargingPoint>(this.apiUrl, chargingPoint);
+    }
 }

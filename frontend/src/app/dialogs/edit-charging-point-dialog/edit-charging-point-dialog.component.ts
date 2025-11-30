@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Inject, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,21 +31,31 @@ export class EditChargingPointDialogComponent implements AfterViewInit {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<EditChargingPointDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ChargingPoint
+    @Inject(MAT_DIALOG_DATA) public data: ChargingPoint | null
   ) {
     this.form = this.fb.group({
-      id: [data.id],
-      title: [data.title, Validators.required],
-      address1: [data.address1, Validators.required],
-      address2: [data.address2],
-      postalCode: [data.postalCode, Validators.required],
-      city: [data.city, Validators.required],
-      country: [data.country, Validators.required],
-      comments: [data.comments],
-      mapCoordinates: [data.mapCoordinates, Validators.required],
-      numberOfChargePoints: [data.numberOfChargePoints],
-      capacity: [data.capacity, Validators.required]
+      id: [data?.id || 0],
+      title: [data?.title || '', Validators.required],
+      address1: [data?.address1 || '', Validators.required],
+      address2: [data?.address2 || ''],
+      postalCode: [data?.postalCode || '', Validators.required],
+      city: [data?.city || '', Validators.required],
+      country: [data?.country || 'Sweden', Validators.required],
+      comments: [data?.comments || ''],
+      mapCoordinates: [data?.mapCoordinates || '', Validators.required],
+      numberOfChargePoints: [data?.numberOfChargePoints || null, this.integerValidator()],
+      capacity: [data?.capacity || null, [Validators.required, this.integerValidator()]]
     });
+  }
+
+  private integerValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value === null || value === undefined || value === '') {
+        return null;
+      }
+      return Number.isInteger(Number(value)) ? null : { notInteger: true };
+    };
   }
 
   ngAfterViewInit(): void {
@@ -53,7 +63,7 @@ export class EditChargingPointDialogComponent implements AfterViewInit {
   }
 
   private initMap(): void {
-    const coords = this.parseCoordinates(this.data.mapCoordinates);
+    const coords = this.data?.mapCoordinates ? this.parseCoordinates(this.data.mapCoordinates) : null;
     const center: L.LatLngExpression = coords ? coords : [62.0, 15.0]; // Default to center of Sweden if no coords
     const zoom = coords ? 13 : 5;
 
@@ -137,17 +147,35 @@ export class EditChargingPointDialogComponent implements AfterViewInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-      const updatedPoint: ChargingPoint = this.form.value;
-      this.chargingStationService.updateChargingPoint(updatedPoint.id, updatedPoint).subscribe({
-        next: () => {
-          this.snackBar.open('Laddstation uppdaterad!', 'Stäng', { duration: 3000 });
-          this.dialogRef.close(true);
-        },
-        error: (err) => {
-          console.error('Error updating charging point:', err);
-          this.snackBar.open('Kunde inte uppdatera laddstation.', 'Stäng', { duration: 3000 });
-        }
-      });
+      const pointData = this.form.value;
+
+      if (this.data && this.data.id) {
+        // Update existing
+        this.chargingStationService.updateChargingPoint(pointData.id, pointData).subscribe({
+          next: () => {
+            this.snackBar.open('Laddstation uppdaterad!', 'Stäng', { duration: 3000 });
+            this.dialogRef.close(true);
+          },
+          error: (err) => {
+            console.error('Error updating charging point:', err);
+            this.snackBar.open('Kunde inte uppdatera laddstation.', 'Stäng', { duration: 3000 });
+          }
+        });
+      } else {
+        // Create new
+        // Remove ID from payload for creation
+        const { id, ...newPoint } = pointData;
+        this.chargingStationService.createChargingPoint(newPoint).subscribe({
+          next: () => {
+            this.snackBar.open('Laddstation skapad!', 'Stäng', { duration: 3000 });
+            this.dialogRef.close(true);
+          },
+          error: (err) => {
+            console.error('Error creating charging point:', err);
+            this.snackBar.open('Kunde inte skapa laddstation.', 'Stäng', { duration: 3000 });
+          }
+        });
+      }
     }
   }
 
