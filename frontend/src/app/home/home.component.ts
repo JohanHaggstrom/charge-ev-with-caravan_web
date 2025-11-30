@@ -96,6 +96,20 @@ export class HomeComponent implements OnInit {
         });
     }
 
+    deleteChargePoint(point: IdentifiedCaravanChargePoint): void {
+        if (confirm(`Är du säker på att du vill ta bort "${point.title}"?`)) {
+            this.chargingStationService.deleteChargingPoint(point.id).subscribe({
+                next: () => {
+                    this.loadChargingPoints();
+                },
+                error: (err) => {
+                    console.error('Error deleting charging point:', err);
+                    alert('Kunde inte ta bort laddstationen.');
+                }
+            });
+        }
+    }
+
     private loadChargingPoints(): void {
         this.chargingStationService.getChargingPoints().subscribe({
             next: (points) => {

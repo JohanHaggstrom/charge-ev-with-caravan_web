@@ -94,6 +94,23 @@ public class ChargingPointsController : ControllerBase
         return CreatedAtAction("GetChargingPoint", new { id = chargingPoint.Id }, chargingPoint);
     }
 
+    [HttpDelete("{id}")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
+    public async Task<IActionResult> DeleteChargingPoint(int id)
+    {
+        var chargingPoint = await _context.ChargingPoints.FindAsync(id);
+
+        if (chargingPoint == null)
+        {
+            return NotFound();
+        }
+
+        _context.ChargingPoints.Remove(chargingPoint);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+
     private bool ChargingPointExists(int id)
     {
         return _context.ChargingPoints.Any(e => e.Id == id);

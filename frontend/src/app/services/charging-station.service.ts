@@ -47,4 +47,8 @@ export class ChargingStationService {
     createChargingPoint(chargingPoint: Omit<ChargingPoint, 'id'>): Observable<ChargingPoint> {
         return this.http.post<ChargingPoint>(this.apiUrl, chargingPoint);
     }
+
+    deleteChargingPoint(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`, this.getHeaders());
+    }
 }

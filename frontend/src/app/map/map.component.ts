@@ -28,6 +28,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
     @Input() chargePoints: IdentifiedCaravanChargePoint[] = [];
     @Output() chargePointSelected = new EventEmitter<IdentifiedCaravanChargePoint>();
     @Output() editChargePoint = new EventEmitter<IdentifiedCaravanChargePoint>();
+    @Output() deleteChargePoint = new EventEmitter<IdentifiedCaravanChargePoint>();
 
     private map: L.Map | null = null;
     private markerClusterGroup: L.MarkerClusterGroup | null = null;
@@ -112,6 +113,19 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
                         }
                     });
                 }
+
+                const deleteBtn = popupNode.querySelector('.delete-btn');
+                if (deleteBtn) {
+                    deleteBtn.addEventListener('click', () => {
+                        // Find the point associated with this popup
+                        const pointId = deleteBtn.getAttribute('data-id');
+                        const point = this.chargePoints.find(p => p.id === Number(pointId));
+                        if (point) {
+                            this.deleteChargePoint.emit(point);
+                            this.map?.closePopup();
+                        }
+                    });
+                }
             }
         });
     }
@@ -181,7 +195,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
     private createPopupContent(point: IdentifiedCaravanChargePoint): string {
         const capacityColor = point.capacity > 50 ? '#10b981' : point.capacity >= 22 ? '#f59e0b' : '#ef4444';
         const editButton = this.authService.isAuthenticated()
-            ? `<button class="edit-btn" data-id="${point.id}" style="margin-top: 8px; width: 100%; padding: 6px; background: #e0e7ff; border: none; border-radius: 4px; cursor: pointer; color: #3730a3; font-weight: 500;">✏️ Redigera</button>`
+            ? `<div style="display: flex; gap: 8px; margin-top: 8px;">
+                 <button class="edit-btn" data-id="${point.id}" style="flex: 1; padding: 6px; background: #e0e7ff; border: none; border-radius: 4px; cursor: pointer; color: #3730a3; font-weight: 500;">✏️ Redigera</button>
+                 <button class="delete-btn" data-id="${point.id}" style="flex: 1; padding: 6px; background: #fee2e2; border: none; border-radius: 4px; cursor: pointer; color: #991b1b; font-weight: 500;">🗑️ Ta bort</button>
+               </div>`
             : '';
 
         return `

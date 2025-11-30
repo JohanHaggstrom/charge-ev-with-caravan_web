@@ -62,6 +62,15 @@
                         >
                             <mat-icon>edit</mat-icon>
                         </button>
+                        <button
+                            class="link-button"
+                            mat-mini-fab
+                            matTooltip="Ta bort"
+                            color="warn"
+                            (click)="deleteChargePoint(item)"
+                        >
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     }
                     <button
                         class="link-button"
@@ -93,6 +102,7 @@
             <app-map
                 [chargePoints]="filteredChargePoints"
                 (editChargePoint)="openEditDialog($event)"
+                (deleteChargePoint)="deleteChargePoint($event)"
             ></app-map>
         </div>
         }

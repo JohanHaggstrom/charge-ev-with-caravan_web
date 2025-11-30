@@ -179,6 +179,8 @@ export class EditChargingPointDialogComponent implements AfterViewInit {
     }
   }
 
+
+
   onCancel(): void {
     this.dialogRef.close(false);
   }
