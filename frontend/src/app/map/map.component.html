@@ -7,8 +7,11 @@
                    placeholder="Sök ort..."
                    class="search-input">
             <button (click)="searchLocation()" class="search-btn" [disabled]="isSearching" title="Sök">
-                <span *ngIf="!isSearching">🔍</span>
-                <span *ngIf="isSearching" class="spinner">↻</span>
+                @if (!isSearching) {
+                    <span>🔍</span>
+                } @else {
+                    <span class="spinner">↻</span>
+                }
             </button>
         </div>
     </div>

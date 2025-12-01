@@ -18,7 +18,7 @@ You are working on the "Elbil med Husvagn" project, a web application for Electr
 ### Angular
 - **Standalone Components**: All components, directives, and pipes must be standalone.
 - **Signals**: Use Angular Signals for state management, inputs, and queries where possible.
-- **Control Flow**: Use the modern `@if`, `@for`, `@switch` control flow syntax.
+- **Control Flow**: ALWAYS use the modern `@if`, `@for`, `@switch` control flow syntax. Do NOT use `*ngIf` or `*ngFor`.
 - **Dependency Injection**: Use `inject()` function instead of constructor injection.
 - **Change Detection**: Use `ChangeDetectionStrategy.OnPush` by default.
 

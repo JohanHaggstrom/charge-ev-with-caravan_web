@@ -46,21 +46,27 @@
       <mat-form-field appearance="outline">
         <mat-label>Kapacitet (kW)</mat-label>
         <input matInput type="number" formControlName="capacity" required>
-        <mat-error *ngIf="form.get('capacity')?.hasError('notInteger')">
-          Kapacitet måste vara ett heltal
-        </mat-error>
-        <mat-error *ngIf="form.get('capacity')?.hasError('required')">
-          Kapacitet krävs
-        </mat-error>
+        @if (form.get('capacity')?.hasError('notInteger')) {
+          <mat-error>
+            Kapacitet måste vara ett heltal
+          </mat-error>
+        }
+        @if (form.get('capacity')?.hasError('required')) {
+          <mat-error>
+            Kapacitet krävs
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
       <mat-form-field appearance="outline">
       <mat-label>Antal laddpunkter</mat-label>
       <input matInput type="number" formControlName="numberOfChargePoints">
-      <mat-error *ngIf="form.get('numberOfChargePoints')?.hasError('notInteger')">
-        Antal laddpunkter måste vara ett heltal
-      </mat-error>
+      @if (form.get('numberOfChargePoints')?.hasError('notInteger')) {
+        <mat-error>
+          Antal laddpunkter måste vara ett heltal
+        </mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="outline">
