@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { IdentifiedCaravanChargePoint } from '../app.model';
 import { AuthService } from '../auth/auth.service';
 import { EditChargingPointDialogComponent } from '../dialogs/edit-charging-point-dialog/edit-charging-point-dialog.component';
@@ -68,68 +69,62 @@ export class HomeComponent implements OnInit {
         this.loadChargingPoints();
     }
 
-    openEditDialog(point: IdentifiedCaravanChargePoint): void {
+    async openEditDialog(point: IdentifiedCaravanChargePoint): Promise<void> {
         const dialogRef = this.dialog.open(EditChargingPointDialogComponent, {
             data: point,
             width: '600px',
             maxWidth: '95vw'
         });
 
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.loadChargingPoints();
-            }
-        });
+        const result = await firstValueFrom(dialogRef.afterClosed());
+        if (result) {
+            await this.loadChargingPoints();
+        }
     }
 
-    openCreateDialog(): void {
+    async openCreateDialog(): Promise<void> {
         const dialogRef = this.dialog.open(EditChargingPointDialogComponent, {
             data: null,
             width: '600px',
             maxWidth: '95vw'
         });
 
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.loadChargingPoints();
-            }
-        });
-    }
-
-    deleteChargePoint(point: IdentifiedCaravanChargePoint): void {
-        if (confirm(`Är du säker på att du vill ta bort "${point.title}"?`)) {
-            this.chargingStationService.deleteChargingPoint(point.id).subscribe({
-                next: () => {
-                    this.loadChargingPoints();
-                },
-                error: (err) => {
-                    console.error('Error deleting charging point:', err);
-                    alert('Kunde inte ta bort laddstationen.');
-                }
-            });
+        const result = await firstValueFrom(dialogRef.afterClosed());
+        if (result) {
+            await this.loadChargingPoints();
         }
     }
 
-    private loadChargingPoints(): void {
-        this.chargingStationService.getChargingPoints().subscribe({
-            next: (points) => {
-                this.identifiedChargePoints = points.map((point) => ({
-                    id: point.id,
-                    title: point.title,
-                    address1: point.address1,
-                    address2: point.address2 || '',
-                    postalCode: point.postalCode,
-                    city: point.city,
-                    country: point.country,
-                    comments: point.comments || '',
-                    mapCoordinates: point.mapCoordinates,
-                    numberOfChargePoints: point.numberOfChargePoints,
-                    capacity: point.capacity
-                }));
-            },
-            error: (error) => {
-                console.error('Error loading charging points:', error);
+    async deleteChargePoint(point: IdentifiedCaravanChargePoint): Promise<void> {
+        if (confirm(`Är du säker på att du vill ta bort "${point.title}"?`)) {
+            try {
+                await firstValueFrom(this.chargingStationService.deleteChargingPoint(point.id));
+                await this.loadChargingPoints();
+            } catch (err) {
+                console.error('Error deleting charging point:', err);
+                alert('Kunde inte ta bort laddstationen.');
             }
-        });
+        }
+    }
+
+    private async loadChargingPoints(): Promise<void> {
+        try {
+            const points = await firstValueFrom(this.chargingStationService.getChargingPoints());
+            this.identifiedChargePoints = points.map((point) => ({
+                id: point.id,
+                title: point.title,
+                address1: point.address1,
+                address2: point.address2 || '',
+                postalCode: point.postalCode,
+                city: point.city,
+                country: point.country,
+                comments: point.comments || '',
+                mapCoordinates: point.mapCoordinates,
+                numberOfChargePoints: point.numberOfChargePoints,
+                capacity: point.capacity
+            }));
+        } catch (error) {
+            console.error('Error loading charging points:', error);
+        }
     }
 }

@@ -25,6 +25,7 @@ You are working on the "Elbil med Husvagn" project, a web application for Electr
 ### TypeScript
 - **Strict Typing**: No `any`. Use interfaces or types for all data structures.
 - **Immutability**: Prefer immutable data structures.
+- **Async/Await**: Always use `async/await` for Promises instead of chained `.then()`. Use `try/catch` for error handling.
 
 ### Styling
 - **SCSS/CSS**: Use SCSS/CSS modules or component-scoped styles.

@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as L from 'leaflet';
+import { firstValueFrom } from 'rxjs';
 import { ChargingPoint, ChargingStationService } from '../../services/charging-station.service';
 
 @Component({
@@ -145,36 +146,28 @@ export class EditChargingPointDialogComponent implements AfterViewInit {
     this.form.markAsDirty();
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.form.valid) {
       const pointData = this.form.value;
 
-      if (this.data && this.data.id) {
-        // Update existing
-        this.chargingStationService.updateChargingPoint(pointData.id, pointData).subscribe({
-          next: () => {
-            this.snackBar.open('Laddstation uppdaterad!', 'Stäng', { duration: 3000 });
-            this.dialogRef.close(true);
-          },
-          error: (err) => {
-            console.error('Error updating charging point:', err);
-            this.snackBar.open('Kunde inte uppdatera laddstation.', 'Stäng', { duration: 3000 });
-          }
-        });
-      } else {
-        // Create new
-        // Remove ID from payload for creation
-        const { id, ...newPoint } = pointData;
-        this.chargingStationService.createChargingPoint(newPoint).subscribe({
-          next: () => {
-            this.snackBar.open('Laddstation skapad!', 'Stäng', { duration: 3000 });
-            this.dialogRef.close(true);
-          },
-          error: (err) => {
-            console.error('Error creating charging point:', err);
-            this.snackBar.open('Kunde inte skapa laddstation.', 'Stäng', { duration: 3000 });
-          }
-        });
+      try {
+        if (this.data && this.data.id) {
+          // Update existing
+          await firstValueFrom(this.chargingStationService.updateChargingPoint(pointData.id, pointData));
+          this.snackBar.open('Laddstation uppdaterad!', 'Stäng', { duration: 3000 });
+          this.dialogRef.close(true);
+        } else {
+          // Create new
+          // Remove ID from payload for creation
+          const { id, ...newPoint } = pointData;
+          await firstValueFrom(this.chargingStationService.createChargingPoint(newPoint));
+          this.snackBar.open('Laddstation skapad!', 'Stäng', { duration: 3000 });
+          this.dialogRef.close(true);
+        }
+      } catch (err) {
+        console.error('Error saving charging point:', err);
+        const action = this.data && this.data.id ? 'uppdatera' : 'skapa';
+        this.snackBar.open(`Kunde inte ${action} laddstation.`, 'Stäng', { duration: 3000 });
       }
     }
   }

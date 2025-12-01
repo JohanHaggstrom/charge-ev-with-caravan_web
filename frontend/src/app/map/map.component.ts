@@ -15,6 +15,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
+import { firstValueFrom } from 'rxjs';
 import { IdentifiedCaravanChargePoint } from '../app.model';
 import { AuthService } from '../auth/auth.service';
 
@@ -264,33 +265,31 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
             alert('Geolocation stöds inte av din webbläsare.');
         }
     }
-    public searchLocation(): void {
+    public async searchLocation(): Promise<void> {
         if (!this.searchQuery || this.searchQuery.length < 3) return;
 
         this.isSearching = true;
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(this.searchQuery)}`;
 
-        this.http.get<any[]>(url).subscribe({
-            next: (results) => {
-                this.isSearching = false;
-                if (results && results.length > 0) {
-                    const firstResult = results[0];
-                    const lat = parseFloat(firstResult.lat);
-                    const lon = parseFloat(firstResult.lon);
+        try {
+            const results = await firstValueFrom(this.http.get<any[]>(url));
+            this.isSearching = false;
+            if (results && results.length > 0) {
+                const firstResult = results[0];
+                const lat = parseFloat(firstResult.lat);
+                const lon = parseFloat(firstResult.lon);
 
-                    if (this.map) {
-                        this.map.setView([lat, lon], 12);
-                    }
-                    this.searchResults = []; // Clear results after selection (or handle list if we want to show multiple)
-                } else {
-                    alert('Inga platser hittades.');
+                if (this.map) {
+                    this.map.setView([lat, lon], 12);
                 }
-            },
-            error: (err) => {
-                this.isSearching = false;
-                console.error('Search error:', err);
-                alert('Ett fel uppstod vid sökning.');
+                this.searchResults = []; // Clear results after selection (or handle list if we want to show multiple)
+            } else {
+                alert('Inga platser hittades.');
             }
-        });
+        } catch (err) {
+            this.isSearching = false;
+            console.error('Search error:', err);
+            alert('Ett fel uppstod vid sökning.');
+        }
     }
 }
