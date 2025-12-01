@@ -37,6 +37,7 @@
 - [ ] **Social UI**: Gränssnitt för kommentarer och betyg.
 - [ ] **Felhantering**: Hantera om backend är nere eller API-anrop misslyckas.
 - [x] **Lista/karta**: Lägg till möjlighet att visa en lista eller en karta.
+- [ ] **Bild av laddstation**: Lägg till möjlighet att visa en bild av en laddstation.
 - [ ] **Runtime Config för Docker**: Implementera runtime configuration för API-nyckel i Docker
     - Skapa `app.initializer.ts` som läser `/assets/config.json` vid app-start
     - Skapa `docker-entrypoint.sh` som genererar `config.json` från miljövariabler
