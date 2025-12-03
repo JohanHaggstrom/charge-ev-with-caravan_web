@@ -41,6 +41,22 @@
         }
     </div>
 
+    <!-- Offline Banner -->
+    @if (!isOnline) {
+        <div class="offline-banner">
+            <mat-icon>cloud_off</mat-icon>
+            <span>Du är offline. Vissa funktioner kan vara begränsade.</span>
+        </div>
+    }
+
+    <!-- Loading Spinner -->
+    @if (isLoading) {
+        <div class="loading-container">
+            <mat-icon class="spinning">refresh</mat-icon>
+            <p>Laddar laddstationer...</p>
+        </div>
+    }
+
     <div class="content">
         @if (viewMode === 'list') {
         <div class="list-view">

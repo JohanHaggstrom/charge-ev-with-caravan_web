@@ -17,6 +17,8 @@ import { ChargePointCommentsDialogComponent } from '../dialogs/charge-point-comm
 import { EditChargingPointDialogComponent } from '../dialogs/edit-charging-point-dialog/edit-charging-point-dialog.component';
 import { MapComponent } from '../map/map.component';
 import { ChargingStationService } from '../services/charging-station.service';
+import { ConnectionService } from '../services/connection.service';
+import { ErrorService } from '../services/error.service';
 
 @Component({
     selector: 'app-home',
@@ -40,6 +42,8 @@ export class HomeComponent implements OnInit {
     protected viewMode: 'map' | 'list' = 'map';
     protected searchText = '';
     protected identifiedChargePoints: IdentifiedCaravanChargePoint[] = [];
+    protected isLoading = false;
+    protected isOnline = true;
 
     protected get filteredChargePoints(): IdentifiedCaravanChargePoint[] {
         if (!this.searchText) {
@@ -57,6 +61,8 @@ export class HomeComponent implements OnInit {
     private router = inject(Router);
     private chargingStationService = inject(ChargingStationService);
     private dialog = inject(MatDialog);
+    private connectionService = inject(ConnectionService);
+    private errorService = inject(ErrorService);
 
     navigateToLogin(): void {
         this.router.navigate(['/login']);
@@ -68,6 +74,15 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadChargingPoints();
+
+        // Monitor connection status
+        this.connectionService.online$.subscribe(isOnline => {
+            this.isOnline = isOnline;
+            if (isOnline && this.identifiedChargePoints.length === 0) {
+                // Retry loading when connection is restored
+                this.loadChargingPoints();
+            }
+        });
     }
 
     async openEditDialog(point: IdentifiedCaravanChargePoint): Promise<void> {
@@ -118,6 +133,15 @@ export class HomeComponent implements OnInit {
     }
 
     private async loadChargingPoints(): Promise<void> {
+        if (!this.connectionService.isOnline()) {
+            this.errorService.handleError(
+                new Error('Ingen internetanslutning'),
+                'Kan inte ladda laddstationer'
+            );
+            return;
+        }
+
+        this.isLoading = true;
         try {
             const points = await firstValueFrom(this.chargingStationService.getChargingPoints());
             this.identifiedChargePoints = points.map((point) => ({
@@ -134,7 +158,10 @@ export class HomeComponent implements OnInit {
                 capacity: point.capacity
             }));
         } catch (error) {
-            console.error('Error loading charging points:', error);
+            this.errorService.handleError(error, 'Kunde inte ladda laddstationer');
+            // Keep any existing data if reload fails
+        } finally {
+            this.isLoading = false;
         }
     }
 }

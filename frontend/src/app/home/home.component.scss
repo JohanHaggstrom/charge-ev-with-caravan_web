@@ -135,6 +135,71 @@ p {
     color: var(--gray-900);
 }
 
+// Offline banner styles
+.offline-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background-color: #fee2e2;
+    color: #991b1b;
+    padding: 12px 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    animation: slideDown 0.3s ease-out;
+
+    mat-icon {
+        color: #ef4444;
+    }
+
+    span {
+        font-weight: 500;
+    }
+}
+
+// Loading spinner styles
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 48px;
+    color: var(--gray-700);
+
+    .spinning {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        animation: spin 1s linear infinite;
+        color: #3b82f6;
+    }
+
+    p {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .content {
     display: flex;
     justify-content: center;
