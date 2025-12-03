@@ -1,0 +1,43 @@
+<div class="popup-content">
+    <h3>{{ chargePoint.title }}</h3>
+    <p><strong>{{ chargePoint.city }}</strong></p>
+    <p>{{ chargePoint.address1 }}</p>
+    @if (chargePoint.address2) {
+        <p>{{ chargePoint.address2 }}</p>
+    }
+    <p>{{ chargePoint.postalCode }} {{ chargePoint.city }}</p>
+
+    <div class="popup-info">
+        <p><strong>Laddare:</strong> {{ chargePoint.numberOfChargePoints || 'Okänt antal' }}</p>
+        <p>
+            <strong>Kapacitet:</strong>
+            <span [style.color]="capacityColor" class="capacity">{{ chargePoint.capacity }} kW</span>
+        </p>
+    </div>
+
+    @if (chargePoint.comments) {
+        <p class="popup-comments"><em>{{ chargePoint.comments }}</em></p>
+    }
+
+    <button class="comments-btn" (click)="onViewComments()">
+        💬 Visa kommentarer
+    </button>
+
+    <a [href]="googleMapsUrl"
+       target="_blank"
+       rel="noopener"
+       class="map-link">
+        📍 Öppna i Google Maps
+    </a>
+
+    @if (isAuthenticated) {
+        <div class="action-buttons">
+            <button class="edit-btn" (click)="onEdit()">
+                ✏️ Redigera
+            </button>
+            <button class="delete-btn" (click)="onDelete()">
+                🗑️ Ta bort
+            </button>
+        </div>
+    }
+</div>

@@ -1,0 +1,100 @@
+.popup-content {
+    h3 {
+        margin: 0 0 8px 0;
+        font-size: 16px;
+        color: #1f2937;
+    }
+
+    p {
+        margin: 4px 0;
+        font-size: 14px;
+        color: #4b5563;
+    }
+
+    .popup-info {
+        margin: 8px 0;
+        padding: 8px;
+        background: #f9fafb;
+        border-radius: 4px;
+
+        p {
+            margin: 4px 0;
+        }
+    }
+
+    .capacity {
+        font-weight: bold;
+    }
+
+    .popup-comments {
+        margin: 8px 0;
+        padding: 8px;
+        background: #fef3c7;
+        border-left: 3px solid #f59e0b;
+        border-radius: 4px;
+    }
+
+    .comments-btn {
+        width: 100%;
+        padding: 8px;
+        background: #3b82f6;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: white;
+        font-weight: 500;
+        margin-top: 8px;
+        transition: background 0.2s;
+
+        &:hover {
+            background: #2563eb;
+        }
+    }
+
+    .map-link {
+        display: block;
+        margin-top: 8px;
+        padding: 8px;
+        text-align: center;
+        background: #f3f4f6;
+        color: #1f2937;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: background 0.2s;
+
+        &:hover {
+            background: #e5e7eb;
+        }
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+
+        button {
+            flex: 1;
+            padding: 6px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: opacity 0.2s;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        .edit-btn {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    }
+}

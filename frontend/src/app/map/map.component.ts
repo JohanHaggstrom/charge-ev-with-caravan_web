@@ -2,15 +2,18 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
     AfterViewInit,
+    ApplicationRef,
     Component,
+    createComponent,
+    EnvironmentInjector,
     EventEmitter,
+    inject,
     Input,
     OnChanges,
     OnDestroy,
     OnInit,
     Output,
     SimpleChanges,
-    inject,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import * as L from 'leaflet';
@@ -18,6 +21,7 @@ import 'leaflet.markercluster';
 import { firstValueFrom } from 'rxjs';
 import { IdentifiedCaravanChargePoint } from '../app.model';
 import { AuthService } from '../auth/auth.service';
+import { ChargePointPopupComponent } from './charge-point-popup/charge-point-popup.component';
 
 @Component({
     selector: 'app-map',
@@ -37,6 +41,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
     private userLocationMarker: L.Marker | null = null;
     private http = inject(HttpClient);
     private authService = inject(AuthService);
+    private appRef = inject(ApplicationRef);
+    private injector = inject(EnvironmentInjector);
 
     public searchQuery: string = '';
     public searchResults: any[] = [];
@@ -100,47 +106,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
         });
         this.map.addLayer(this.markerClusterGroup);
 
-        // Handle popup open events to attach click listeners
-        this.map.on('popupopen', (e: L.PopupEvent) => {
-            const popupNode = e.popup.getElement();
-            if (popupNode) {
-                const editBtn = popupNode.querySelector('.edit-btn');
-                if (editBtn) {
-                    editBtn.addEventListener('click', () => {
-                        // Find the point associated with this popup
-                        const pointId = editBtn.getAttribute('data-id');
-                        const point = this.chargePoints.find(p => p.id === Number(pointId));
-                        if (point) {
-                            this.editChargePoint.emit(point);
-                        }
-                    });
-                }
-
-                const deleteBtn = popupNode.querySelector('.delete-btn');
-                if (deleteBtn) {
-                    deleteBtn.addEventListener('click', () => {
-                        // Find the point associated with this popup
-                        const pointId = deleteBtn.getAttribute('data-id');
-                        const point = this.chargePoints.find(p => p.id === Number(pointId));
-                        if (point) {
-                            this.deleteChargePoint.emit(point);
-                            this.map?.closePopup();
-                        }
-                    });
-                }
-
-                const commentsBtn = popupNode.querySelector('.comments-btn');
-                if (commentsBtn) {
-                    commentsBtn.addEventListener('click', () => {
-                        const pointId = commentsBtn.getAttribute('data-id');
-                        const point = this.chargePoints.find(p => p.id === Number(pointId));
-                        if (point) {
-                            this.viewComments.emit(point);
-                        }
-                    });
-                }
-            }
-        });
     }
 
     private addMarkers(): void {
@@ -205,37 +170,37 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
         return null;
     }
 
-    private createPopupContent(point: IdentifiedCaravanChargePoint): string {
-        const capacityColor = point.capacity > 50 ? '#10b981' : point.capacity >= 22 ? '#f59e0b' : '#ef4444';
-        const editButton = this.authService.isAuthenticated()
-            ? `<div style="display: flex; gap: 8px; margin-top: 8px;">
-                 <button class="edit-btn" data-id="${point.id}" style="flex: 1; padding: 6px; background: #e0e7ff; border: none; border-radius: 4px; cursor: pointer; color: #3730a3; font-weight: 500;">✏️ Redigera</button>
-                 <button class="delete-btn" data-id="${point.id}" style="flex: 1; padding: 6px; background: #fee2e2; border: none; border-radius: 4px; cursor: pointer; color: #991b1b; font-weight: 500;">🗑️ Ta bort</button>
-               </div>`
-            : '';
+    private createPopupContent(point: IdentifiedCaravanChargePoint): HTMLElement {
+        // Create the component dynamically
+        const componentRef = createComponent(ChargePointPopupComponent, {
+            environmentInjector: this.injector
+        });
 
-        return `
-            <div class="popup-content">
-                <h3>${point.title}</h3>
-                <p><strong>${point.city}</strong></p>
-                <p>${point.address1}</p>
-                ${point.address2 ? `<p>${point.address2}</p>` : ''}
-                <p>${point.postalCode} ${point.city}</p>
-                <div class="popup-info">
-                    <p><strong>Laddare:</strong> ${point.numberOfChargePoints || 'Okänt antal'}</p>
-                    <p><strong>Kapacitet:</strong> <span style="color: ${capacityColor}; font-weight: bold;">${point.capacity} kW</span></p>
-                </div>
-                ${point.comments ? `<p class="popup-comments"><em>${point.comments}</em></p>` : ''}
-                <button class="comments-btn" data-id="${point.id}" style="width: 100%; padding: 8px; background: #3b82f6; border: none; border-radius: 4px; cursor: pointer; color: white; font-weight: 500; margin-top: 8px;">💬 Visa kommentarer</button>
-                <a href="https://www.google.com/maps/place/${point.mapCoordinates}"
-                   target="_blank"
-                   rel="noopener"
-                   class="map-link">
-                    📍 Öppna i Google Maps
-                </a>
-                ${editButton}
-            </div>
-        `;
+        // Set the inputs
+        componentRef.instance.chargePoint = point;
+        componentRef.instance.isAuthenticated = this.authService.isAuthenticated();
+
+        // Subscribe to outputs
+        componentRef.instance.edit.subscribe(() => {
+            this.editChargePoint.emit(point);
+        });
+
+        componentRef.instance.delete.subscribe(() => {
+            this.deleteChargePoint.emit(point);
+            this.map?.closePopup();
+        });
+
+        componentRef.instance.viewComments.subscribe(() => {
+            this.viewComments.emit(point);
+        });
+
+        // Attach to the application
+        this.appRef.attachView(componentRef.hostView);
+
+        // Get the DOM element
+        const domElem = (componentRef.hostView as any).rootNodes[0] as HTMLElement;
+
+        return domElem;
     }
 
     public showUserLocation(): void {
