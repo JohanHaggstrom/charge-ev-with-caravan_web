@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { IdentifiedCaravanChargePoint } from '../app.model';
 import { AuthService } from '../auth/auth.service';
+import { ChargePointCommentsDialogComponent } from '../dialogs/charge-point-comments-dialog/charge-point-comments-dialog.component';
 import { EditChargingPointDialogComponent } from '../dialogs/edit-charging-point-dialog/edit-charging-point-dialog.component';
 import { MapComponent } from '../map/map.component';
 import { ChargingStationService } from '../services/charging-station.service';
@@ -105,6 +106,15 @@ export class HomeComponent implements OnInit {
                 alert('Kunde inte ta bort laddstationen.');
             }
         }
+    }
+
+    openCommentsDialog(point: IdentifiedCaravanChargePoint): void {
+        this.dialog.open(ChargePointCommentsDialogComponent, {
+            data: point,
+            width: '700px',
+            maxWidth: '95vw',
+            maxHeight: '90vh'
+        });
     }
 
     private async loadChargingPoints(): Promise<void> {

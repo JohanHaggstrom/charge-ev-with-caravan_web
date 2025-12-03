@@ -30,6 +30,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
     @Output() chargePointSelected = new EventEmitter<IdentifiedCaravanChargePoint>();
     @Output() editChargePoint = new EventEmitter<IdentifiedCaravanChargePoint>();
     @Output() deleteChargePoint = new EventEmitter<IdentifiedCaravanChargePoint>();
+    @Output() viewComments = new EventEmitter<IdentifiedCaravanChargePoint>();
 
     private map: L.Map | null = null;
     private markerClusterGroup: L.MarkerClusterGroup | null = null;
@@ -127,6 +128,17 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
                         }
                     });
                 }
+
+                const commentsBtn = popupNode.querySelector('.comments-btn');
+                if (commentsBtn) {
+                    commentsBtn.addEventListener('click', () => {
+                        const pointId = commentsBtn.getAttribute('data-id');
+                        const point = this.chargePoints.find(p => p.id === Number(pointId));
+                        if (point) {
+                            this.viewComments.emit(point);
+                        }
+                    });
+                }
             }
         });
     }
@@ -214,6 +226,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
                     <p><strong>Kapacitet:</strong> <span style="color: ${capacityColor}; font-weight: bold;">${point.capacity} kW</span></p>
                 </div>
                 ${point.comments ? `<p class="popup-comments"><em>${point.comments}</em></p>` : ''}
+                <button class="comments-btn" data-id="${point.id}" style="width: 100%; padding: 8px; background: #3b82f6; border: none; border-radius: 4px; cursor: pointer; color: white; font-weight: 500; margin-top: 8px;">💬 Visa kommentarer</button>
                 <a href="https://www.google.com/maps/place/${point.mapCoordinates}"
                    target="_blank"
                    rel="noopener"

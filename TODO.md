@@ -24,9 +24,9 @@
     - [x] Möjlighet att lägga till en punkt.
     - [x] Möjlighet att editera en punkt.
     - [x] Möjlighet att ta bort en punkt.
-- [ ] **Sociala funktioner**:
-    - [ ] Möjlighet att lägga till kommentarer på en punkt.
-    - [ ] Möjlighet att ge tumme upp/ner på en punkt.
+- [x] **Sociala funktioner**:
+    - [x] Möjlighet att lägga till kommentarer på en punkt.
+    - [x] Möjlighet att ge tumme upp/ner på en punkt.
 
 ## Frontend (Angular)
 - [x] **Karta - Sök**: Implementera sökfält för att hitta platser på kartan.
@@ -34,7 +34,7 @@
 - [x] **API-koppling**: Koppla ihop frontend med backend på riktigt (ersätta hårdkodad data).
 - [x] **Säkerhet**: Hantera API-nyckel i anrop och Login-flöde i UI.
 - [x] **Admin UI**: Gränssnitt för att lägga till, redigera och ta bort punkter.
-- [ ] **Social UI**: Gränssnitt för kommentarer och betyg.
+- [x] **Social UI**: Gränssnitt för kommentarer och betyg.
 - [ ] **Felhantering**: Hantera om backend är nere eller API-anrop misslyckas.
 - [x] **Lista/karta**: Lägg till möjlighet att visa en lista eller en karta.
 - [ ] **Bild av laddstation**: Lägg till möjlighet att visa en bild av en laddstation.

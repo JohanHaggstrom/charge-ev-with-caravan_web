@@ -10,10 +10,26 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<ChargingPoint> ChargingPoints { get; set; }
+    public DbSet<ChargePointComment> ChargePointComments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        // Configure ChargePointComment
+        modelBuilder.Entity<ChargePointComment>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Comment).IsRequired();
+            entity.Property(e => e.Vote).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+
+            // Configure relationship
+            entity.HasOne(e => e.ChargingPoint)
+                .WithMany()
+                .HasForeignKey(e => e.ChargePointId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
 
         // Seed data from the frontend
         modelBuilder.Entity<ChargingPoint>().HasData(

@@ -1,0 +1,262 @@
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    span {
+        flex: 1;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .close-button {
+        margin-left: 16px;
+    }
+}
+
+.stats-container {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #f5f5f5;
+    border-radius: 8px;
+
+    .stat {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+
+        .stat-icon {
+            font-size: 32px;
+            width: 32px;
+            height: 32px;
+            color: #666;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        &.upvote {
+            .stat-icon,
+            .stat-value {
+                color: #10b981;
+            }
+        }
+
+        &.downvote {
+            .stat-icon,
+            .stat-value {
+                color: #ef4444;
+            }
+        }
+    }
+}
+
+.add-comment-card {
+    margin-bottom: 24px;
+
+    mat-card-header {
+        margin-bottom: 16px;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .vote-buttons {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+
+        .vote-button {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            transition: all 0.2s ease;
+
+            mat-icon {
+                font-size: 20px;
+                width: 20px;
+                height: 20px;
+            }
+
+            &.upvote-button {
+                border: 2px solid #10b981;
+                color: #10b981;
+
+                &.selected {
+                    background: #10b981;
+                    color: white;
+                }
+
+                &:hover:not(.selected) {
+                    background: rgba(16, 185, 129, 0.1);
+                }
+            }
+
+            &.downvote-button {
+                border: 2px solid #ef4444;
+                color: #ef4444;
+
+                &.selected {
+                    background: #ef4444;
+                    color: white;
+                }
+
+                &:hover:not(.selected) {
+                    background: rgba(239, 68, 68, 0.1);
+                }
+            }
+        }
+    }
+
+    .submit-button {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+.comments-section {
+    h3 {
+        margin-bottom: 16px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .loading {
+        text-align: center;
+        padding: 32px;
+        color: #666;
+    }
+
+    .no-comments {
+        text-align: center;
+        padding: 48px 24px;
+        color: #999;
+
+        mat-icon {
+            font-size: 64px;
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        p {
+            margin: 0;
+            font-size: 14px;
+        }
+    }
+
+    .comment-card {
+        margin-bottom: 12px;
+        transition: box-shadow 0.2s ease;
+
+        &:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+
+            .vote-indicator {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                flex-shrink: 0;
+
+                mat-icon {
+                    font-size: 20px;
+                    width: 20px;
+                    height: 20px;
+                }
+
+                &.upvote {
+                    background: rgba(16, 185, 129, 0.1);
+                    color: #10b981;
+                }
+
+                &.downvote {
+                    background: rgba(239, 68, 68, 0.1);
+                    color: #ef4444;
+                }
+            }
+
+            .comment-meta {
+                flex: 1;
+
+                .comment-date {
+                    font-size: 12px;
+                    color: #666;
+                }
+            }
+
+            .delete-button {
+                color: #ef4444;
+                opacity: 0.6;
+                transition: opacity 0.2s ease;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .comment-text {
+            margin: 0;
+            line-height: 1.6;
+            color: #333;
+            white-space: pre-wrap;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .stats-container {
+        flex-direction: column;
+        gap: 12px;
+
+        .stat {
+            flex-direction: row;
+            justify-content: flex-start;
+
+            .stat-icon {
+                font-size: 24px;
+                width: 24px;
+                height: 24px;
+            }
+
+            .stat-value {
+                font-size: 20px;
+            }
+        }
+    }
+
+    .vote-buttons {
+        flex-direction: column;
+
+        .vote-button {
+            width: 100%;
+        }
+    }
+}
