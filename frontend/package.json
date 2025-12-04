@@ -8,7 +8,11 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "clean-start": "rm -rf .angular && ng serve"
+    "clean-start": "rm -rf .angular && ng serve",
+    "security:audit": "npm audit",
+    "security:fix": "npm audit fix",
+    "security:outdated": "npm outdated",
+    "security:check": "npm audit && npm outdated"
   },
   "private": true,
   "dependencies": {
