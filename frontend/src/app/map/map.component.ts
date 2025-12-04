@@ -16,6 +16,7 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import { firstValueFrom } from 'rxjs';
@@ -25,7 +26,7 @@ import { ChargePointPopupComponent } from './charge-point-popup/charge-point-pop
 
 @Component({
     selector: 'app-map',
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, MatIconModule],
     templateUrl: './map.component.html',
     styleUrl: './map.component.scss',
 })
@@ -50,18 +51,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
 
     ngOnInit(): void {
         // Fix for default marker icons in Leaflet with webpack
-        const iconRetinaUrl = 'assets/marker-icon-2x.png';
-        const iconUrl = 'assets/marker-icon.png';
-        const shadowUrl = 'assets/marker-shadow.png';
-        const iconDefault = L.icon({
-            iconRetinaUrl,
-            iconUrl,
-            shadowUrl,
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            tooltipAnchor: [16, -28],
-            shadowSize: [41, 41],
+        // Set default marker icon to Material Icon
+        const iconDefault = L.divIcon({
+            className: 'custom-div-icon',
+            html: `<span class="material-icons map-marker-icon blue">location_on</span>`,
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40],
         });
         L.Marker.prototype.options.icon = iconDefault;
     }
@@ -151,10 +147,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
 
         return L.divIcon({
             className: 'custom-div-icon',
-            html: `<div class="pin-marker ${colorClass}"></div>`,
-            iconSize: [30, 42],
-            iconAnchor: [15, 36],
-            popupAnchor: [0, -36],
+            html: `<span class="material-icons map-marker-icon ${colorClass}">location_on</span>`,
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40],
         });
     }
 
@@ -219,10 +215,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
 
                     // Create custom icon for user location
                     const userIcon = L.divIcon({
-                        className: 'user-location-marker',
-                        html: '<div class="user-location-dot"></div>',
-                        iconSize: [20, 20],
-                        iconAnchor: [10, 10],
+                        className: 'custom-div-icon',
+                        html: '<span class="material-icons user-location-icon">my_location</span>',
+                        iconSize: [24, 24],
+                        iconAnchor: [12, 12],
                     });
 
                     // Add marker for user location

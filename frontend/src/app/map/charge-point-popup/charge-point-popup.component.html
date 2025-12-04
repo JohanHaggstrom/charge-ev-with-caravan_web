@@ -20,23 +20,23 @@
     }
 
     <button class="comments-btn" (click)="onViewComments()">
-        💬 Visa kommentarer
+        <mat-icon>chat_bubble</mat-icon> Visa kommentarer
     </button>
 
     <a [href]="googleMapsUrl"
        target="_blank"
        rel="noopener"
        class="map-link">
-        📍 Öppna i Google Maps
+        <mat-icon>map</mat-icon> Öppna i Google Maps
     </a>
 
     @if (isAuthenticated) {
         <div class="action-buttons">
             <button class="edit-btn" (click)="onEdit()">
-                ✏️ Redigera
+                <mat-icon>edit</mat-icon> Redigera
             </button>
             <button class="delete-btn" (click)="onDelete()">
-                🗑️ Ta bort
+                <mat-icon>delete</mat-icon> Ta bort
             </button>
         </div>
     }

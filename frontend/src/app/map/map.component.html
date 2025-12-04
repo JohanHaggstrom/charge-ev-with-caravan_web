@@ -8,28 +8,28 @@
                    class="search-input">
             <button (click)="searchLocation()" class="search-btn" [disabled]="isSearching" title="Sök">
                 @if (!isSearching) {
-                    <span>🔍</span>
+                    <mat-icon>search</mat-icon>
                 } @else {
-                    <span class="spinner">↻</span>
+                    <mat-icon class="spinner">refresh</mat-icon>
                 }
             </button>
         </div>
     </div>
     <div class="map-controls">
         <button class="location-btn" (click)="showUserLocation()" title="Visa min position">
-            📍 Min position
+            <mat-icon>my_location</mat-icon> Min position
         </button>
         <div class="map-legend">
             <div class="legend-item">
-                <span class="legend-marker green"></span>
+                <mat-icon class="legend-icon green">location_on</mat-icon>
                 <span class="legend-text">&gt;50 kW</span>
             </div>
             <div class="legend-item">
-                <span class="legend-marker yellow"></span>
+                <mat-icon class="legend-icon yellow">location_on</mat-icon>
                 <span class="legend-text">22-50 kW</span>
             </div>
             <div class="legend-item">
-                <span class="legend-marker red"></span>
+                <mat-icon class="legend-icon red">location_on</mat-icon>
                 <span class="legend-text">&lt;22 kW</span>
             </div>
         </div>

@@ -149,22 +149,21 @@
     }
 }
 
-.legend-marker {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, 0.3);
+.legend-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
 
     &.green {
-        background-color: #10b981;
+        color: #10b981;
     }
 
     &.yellow {
-        background-color: #f59e0b;
+        color: #f59e0b;
     }
 
     &.red {
-        background-color: #ef4444;
+        color: #ef4444;
     }
 }
 
@@ -273,18 +272,17 @@
 }
 
 // User location marker
-::ng-deep .user-location-marker {
-    background: transparent;
-    border: none;
-}
-
-::ng-deep .user-location-dot {
-    width: 20px;
-    height: 20px;
-    background: #3b82f6;
-    border: 3px solid white;
+::ng-deep .user-location-icon {
+    color: #3b82f6;
+    background: white;
     border-radius: 50%;
-    box-shadow: 0 0 0 2px #3b82f6, 0 2px 8px rgba(59, 130, 246, 0.5);
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.5);
     animation: pulse 2s infinite;
 }
 
@@ -292,7 +290,7 @@
     0% {
         box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7), 0 2px 8px rgba(59, 130, 246, 0.5);
     }
-    50% {
+    70% {
         box-shadow: 0 0 0 10px rgba(59, 130, 246, 0), 0 2px 8px rgba(59, 130, 246, 0.5);
     }
     100% {
@@ -364,47 +362,4 @@
     border: none;
 }
 
-::ng-deep .pin-marker {
-    width: 30px;
-    height: 30px;
-    border-radius: 50% 50% 50% 0;
-    position: absolute;
-    transform: rotate(-45deg);
-    left: 0;
-    top: 0;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
-    // Inner dot
-    &::after {
-        content: '';
-        width: 12px;
-        height: 12px;
-        background: rgba(255, 255, 255, 0.6);
-        border-radius: 50%;
-        transform: rotate(45deg); // Keep dot upright relative to screen if needed, but circle is invariant
-    }
-
-    &.green {
-        background: rgba(16, 185, 129, 0.85);
-        border: 1px solid rgba(16, 185, 129, 0.4);
-    }
-
-    &.yellow {
-        background: rgba(245, 158, 11, 0.85);
-        border: 1px solid rgba(245, 158, 11, 0.4);
-    }
-
-    &.red {
-        background: rgba(239, 68, 68, 0.85);
-        border: 1px solid rgba(239, 68, 68, 0.4);
-    }
-
-    &:hover {
-        transform: rotate(-45deg) scale(1.1);
-        z-index: 1000;
-    }
-}

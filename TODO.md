@@ -37,6 +37,8 @@
 - [x] **Social UI**: Gränssnitt för kommentarer och betyg.
 - [ ] **Felhantering**: Hantera om backend är nere eller API-anrop misslyckas.
 - [x] **Lista/karta**: Lägg till möjlighet att visa en lista eller en karta.
+- [x] **Material icons**: Lägg till möjlighet att visa material icons.
+- [ ] **Kunna föreslå förbättringar**: Lägg till möjlighet att kunna föreslå förbättringar. Med Captcha för att förhindra spam. Inklusive databas för det i backend.
 - [ ] **Bild av laddstation**: Lägg till möjlighet att visa en bild av en laddstation.
 - [ ] **Runtime Config för Docker**: Implementera runtime configuration för API-nyckel i Docker
     - Skapa `app.initializer.ts` som läser `/assets/config.json` vid app-start

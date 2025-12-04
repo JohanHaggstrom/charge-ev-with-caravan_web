@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { IdentifiedCaravanChargePoint } from '../../app.model';
 
 @Component({
     selector: 'app-charge-point-popup',
-    imports: [CommonModule],
+    imports: [CommonModule, MatIconModule],
     templateUrl: './charge-point-popup.component.html',
     styleUrl: './charge-point-popup.component.scss'
 })
